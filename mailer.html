@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Contact Form Example</title>
 </head>
 
@@ -28,18 +29,14 @@
         <label for="email">Your Email Address:</label>
         <input id="email" name="email" type="email" value=""
         required placeholder="your.name@email.com"/>
-
+      <div class="g-recaptcha" data-sitekey="6LfsBFkaAAAAACb8iUlwMrlf23TsxTcSanHBTEYu"></div>
       <input type="submit" id="submitbutton" value="Send" />
 
     <div class="thankyou_message" style="display:none;">
       <h2><em>Thanks</em> for contacting me!
         I'll get back to you soon!</h2>
     </div>
-    <div class="g-recaptcha"
-          data-sitekey="6Ldn-FgaAAAAAMWw82462DgBdPw22kGJ7hRnss6H"
-          data-callback="handleFormSubmit"
-          data-size="invisible">
-    </div>
+
 
   </form>
 
@@ -54,6 +51,7 @@
     }
     formData.formDataNameOrder = JSON.stringify(["name","message","email"]);
     formData.formGoogleSheetName = "responses";
+    formData.captcha = grecaptcha.getResponse();
     console.log(formData);
     return formData;
   }
@@ -95,12 +93,11 @@
     () => {
       document
         .querySelector("#contact_form")
-        .addEventListener("submit", () => { grecaptcha.execute(); }, false);
+        .addEventListener("submit", handleFormSubmit, false);
     },
     false);
     
 })();  
   </script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
