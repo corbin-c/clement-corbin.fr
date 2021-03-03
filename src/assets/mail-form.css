@@ -1,0 +1,209 @@
+@keyframes error {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(.9);
+  }
+  67% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes tingle {
+  0% {
+    transform: rotate(12deg);
+  }
+  33% {
+    transform: translateY(-10%) rotate(30deg);
+  }
+  67% {
+    transform: translateX(10%) rotate(-3deg);
+  }
+  100% {
+    transform: rotate(12deg);
+  }
+}
+@keyframes fly {
+  0% {
+    transform: rotate(12deg);
+  }
+  33% {
+    transform: translateY(-10%) translateX(200%) rotate(-3deg);
+  }
+  67% {
+    transform: translateY(15%) translateX(300%) rotate(30deg);
+  }
+  100% {
+    transform: translateY(-30%) translateX(900%) rotate(12deg);
+  }
+}
+section {
+  width: 80vw;
+  margin-left: 10vw;
+  overflow: hidden;
+  position: relative;
+}
+form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  position: relative;
+  overflow: hidden;
+  grid-auto-rows: minmax(10px, auto);
+  transition: transform 1.3s cubic-bezier(.23,1,.32,1) .8s;
+}
+form.success {
+  transform: translateX(110%);
+}
+.thankyou {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: translateX(-110%) translateY(50%);
+  width: 100%;
+  height: 100%;
+  transition: transform 1.3s cubic-bezier(.23,1,.32,1) 1.3s;
+}
+.thankyou.success {
+  transform: translateX(0%) translateY(50%);
+}
+form h3, form p {
+  grid-column: 1/5;
+}
+form, form * {
+  font-size: 1em;
+}
+label {
+  overflow: hidden;
+}
+#firstname {
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 200vw;
+}
+#name {
+  grid-column: 1/3;  
+}
+#email {
+  grid-column: 3/5;
+}
+#message {
+  grid-column: 1/5;
+}
+label {
+  align-self: start;
+  position: relative;
+}
+.error {
+  animation: .3s linear error;
+}
+label span {
+  font-size: 0.8em;
+  display: block;
+  height: 1.3em;
+  margin-left: 1em;
+  transform: translateX(-102%);
+  transition: transform .8s cubic-bezier(.23,1,.32,1);
+}
+label span.shown {
+  transform: translateX(0%);
+}
+input, textarea, button {
+  width: 100%;
+  padding: .2em;
+  padding-left: .3em;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: .1em solid var(--regular1);
+  background: var(--neutral1);
+  transition: border-color .5s;
+}
+button {
+  grid-column: 2 / 3;
+  margin-left: 50%;
+  border: 2px solid var(--contrast2);
+  overflow: hidden;
+  border-radius: .45em;
+  padding-bottom: .4em;
+  padding-left: .6em;
+  padding-right: .6em;
+  transition: .4s all;
+}
+button:hover {
+  cursor: pointer;
+}
+button:hover, button:focus {
+  background-color: var(--contrast2);
+  color: var(--neutral1);
+}
+button:hover svg *, button:focus svg * {
+  fill: var(--neutral1);
+}
+form.success button svg {
+  animation: .8s fly linear;
+}
+button svg {
+  height: 1.3em;
+  position: relative;
+  top: .4em;
+  left: .3em;
+  transform: rotate(12deg);
+}
+button:hover svg, button:focus svg {
+  animation: .3s tingle linear;
+}
+button svg * {
+  fill: var(--contrast2);
+}
+button:focus {
+  outline: none;
+}
+input:hover, textarea:hover {
+  border-bottom: .1em solid var(--regular2);
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-bottom: .1em solid var(--regular2);
+}
+label:focus *, label:focus-visible {
+  outline: none;
+}
+input:invalid, textarea:invalid {
+  box-shadow: none;
+}
+label::before, label::after {
+  content: "";
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+  border-bottom: .2em solid var(--regular2);
+}
+label::after {
+  opacity: 1;
+  transition: transform .8s cubic-bezier(.23,1,.32,1);
+  transform: translateX(102%);
+}
+label::before {
+  transform: translateX(-102%);
+  opacity: 0;
+}
+label:focus-within::before {
+  transition: transform .8s cubic-bezier(.23,1,.32,1);
+  transform: translateX(0);
+  opacity: 1;
+}
+label:focus-within::after {
+  transition: none;
+  transform: translateX(0);
+  opacity: 0;
+}

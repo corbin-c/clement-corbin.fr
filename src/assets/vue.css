@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+/* color palette */
+:root {
+/*
+  --neutral1:#dce0d4;
+  --neutral2:#c9c8d6;
+  --regular1:#b6bddc;
+  --regular2:#e19c8b;
+  --contrast1:#adbeea;
+  --contrast2:#ff6230;
+e63946-f1faee-cdeae5-a8dadc-457b9d-1d3557
+*/
+  --neutral1:#cdeae5;
+  --neutral2:#f1faee;
+  --regular1:#a8dadc;
+  --regular2:#457b9d;
+  --contrast1:#1d3557;
+  --contrast2:#e63946;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Sans;
+  box-sizing: border-box;
+  color: var(--contrast2);
+  font-family: 'Roboto Slab', serif;
+}
+html {
+  min-height: 100vh;
+  background: var(--neutral1);
+}
+body {
+  width: 100%;
+  height: 100vh;
+}
+img {
+/*
+  width: 50vw;
+*/
+  transition: .5s all;
+}

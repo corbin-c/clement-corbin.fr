@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 495 246">
+<g id="laptop">
+<path fill="black" d="M 448.5 240
+V 14
+C 448.6 6.4 442.4 0.1 434.7 0
+C 434.7 0 434.7 0 434.6 0
+H 57.3 C 49.6 0.1 43.4 6.3 43.4 13.9
+C 43.4 13.9 43.4 13.9 43.4 14
+V 240
+H 53.5
+V 13.9
+C 53.5 11.7 55.3 9.9 57.5 9.9
+H 434.5
+C 436.7 9.9 438.5 11.7 438.5 13.9
+V 226.4
+H 53.5
+V 240 Z"></path>
+<path fill="#C9C8CC" d="M 7.5 279 H 487.5 L 487.5 279 C 487.5 284.5 483 289 477.5 289 H 17.5 C 12 289 7.5 284.5 7.5 279 L 7.5 279 Z" transform="translate(0 -42.5)"></path>
+<!--
+  <rect x="267" y="50" width="1920" height="1080" fill="rgba(255,0,0,0.5)" transform="scale(.2005)"></rect>
+-->
+
+</g>
+</svg>
