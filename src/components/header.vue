@@ -23,9 +23,8 @@ export default {
   data: function() {
     return {
       route: "/",
-      state: "",
-      isTitleScreen: true,
-      lastName: "Corbin,",
+      state: "header static",
+      lastName: "Corbin",
     }
   },
   components: {
@@ -50,9 +49,12 @@ export default {
       }
     },
     setState() {
-      if (this.route !== "/") {
+      if (this.route === "/") {
+        this.state = "";
+        this.lastName = "Corbin,";
+      } else {
         this.state = "header static";
-        this.lastName = "Corbin";
+        this.lastName = "Corbin";        
       }
     },
     updateState(e) {
