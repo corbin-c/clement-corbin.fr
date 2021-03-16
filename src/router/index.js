@@ -13,18 +13,21 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: () => import("../views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
     path: "/contact",
     name: "Contact",
-    component: () => import("../views/Contact.vue")
+    component: () => import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
   },
   {
-    path: "*",
-    alias: "/404",
-    name: "404",
-    component: () => import("../views/404.vue")
+    path: "/404",
+    name: "error-404",
+    component: () => import(/* webpackChunkName: "404" */ "../views/404.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
   }
 ]
 
