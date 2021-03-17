@@ -1,4 +1,4 @@
-@keyframes toheaderh1 {
+@keyframes toh1 {
   0% {
     left: 32.1%;
     top: 6%;
@@ -12,7 +12,7 @@
     transform: translate3d(0,0,0) scale(1);
   }
 }
-@keyframes toheaderh2 {
+@keyframes toh2 {
   0% {
     left: 0%;
     top: 46.3%;
@@ -26,7 +26,7 @@
     transform: translate3d(0,0,0) scale(1);
   }
 }
-@keyframes toheaderh1span {
+@keyframes toh1span {
   0% {
     left: -48%;
     top: 59%;
@@ -40,7 +40,7 @@
     transform: translate3d(0,0,0) scale(1);
   }
 }
-@keyframes toheaderh2span {
+@keyframes toh2span {
   0% {
     left: 28.8%;
     top: 69.2%;
@@ -60,11 +60,14 @@
     height: var(--headersize);
     left: calc((100vw - var(--headersize)) / 2);
     top: calc((100vh - var(--headersize)) / 2);
+    font-size: var(--titlefontsize);
   }
+/*
   70% {
     height: 2em;
     left: 0;
   }
+*/
   100% {
     width: 100vw;
     left: 0;
@@ -116,7 +119,7 @@ header * {
   top: 10.3%;
   font-size: 108.3%;
   letter-spacing: -0.02em;
-  transform: translate3d(-120%,0,0);
+  transform: translate3d(-130%,0,0);
   animation: .5s reveal ease-in-out forwards;
 }
 .title p:nth-child(2) {
@@ -204,7 +207,10 @@ header * {
   top: 0;
   font-size: var(--headerfontsize);
   height: 2em;
-  animation: 1.3s toheader ease-out forwards;
+  animation: .8s toheader ease-in-out forwards;
+}
+.header nav {
+  transition: .6s all;
 }
 .header *, .header *:after {
   color: rgba(0,0,0,0) !important;
@@ -216,22 +222,23 @@ header * {
   font-size: 1em;
   top: -.05em;
   left: .1em;
-  animation: 1s toheaderh1 ease-out forwards;
+  animation: .8s toh1 ease-in-out forwards;
 }
 .header h2 {
   font-size: .7em;
+  top: 46.3%;
   left: .3em;
-  animation: 1s toheaderh2 ease-out forwards;
+  animation: .8s toh2 ease-in-out forwards;
 }
 .header h1 span {
   left: 108%;
   top: 0;
-  animation: 1s toheaderh1span ease-out forwards;
+  animation: .8s toh1span ease-in-out forwards;
 }
 .header h2 span {
   left: 108%;
   top: 0;
-  animation: 1s toheaderh2span ease-out forwards;
+  animation: .8s toh2span ease-in-out forwards;
 }
 .static h1, .static h1 span, .static h2, .static h2 span {
   animation: none !important;
