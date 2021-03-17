@@ -75,6 +75,9 @@ form.success {
 form h3, form p {
   grid-column: 1/5;
 }
+form p {
+  line-height: 1.75em;
+}
 form, form * {
   font-size: 1em;
 }
@@ -95,6 +98,7 @@ label {
 }
 #message {
   grid-column: 1/5;
+  line-height: .7em;
 }
 label {
   align-self: start;
@@ -107,6 +111,7 @@ label span {
   font-size: 0.8em;
   display: block;
   height: 1.3em;
+  line-height: initial;
   margin-left: 1em;
   transform: translateX(-102%);
   transition: transform .8s cubic-bezier(.23,1,.32,1);
@@ -116,6 +121,8 @@ label span.shown {
 }
 input, textarea, button {
   width: 100%;
+  resize: none;
+  line-height: initial;
   padding: .2em;
   padding-left: .3em;
   border-top: none;
@@ -181,12 +188,12 @@ input:invalid, textarea:invalid {
 label::before, label::after {
   content: "";
   position: absolute;
-  height: 10px;
+  height: .2em;
   width: 100%;
-  bottom: 1em;
+  bottom: .9em;
   left: 0;
   right: 0;
-  border-bottom: .2em solid var(--regular2);
+  background: var(--regular2);
 }
 label::after {
   opacity: 1;
@@ -206,4 +213,16 @@ label:focus-within::after {
   transition: none;
   transform: translateX(0);
   opacity: 0;
+}
+@media screen and (orientation: portrait) {
+  #name {
+    grid-column: 1/5;  
+  }
+  #email {
+    grid-column: 1/5;
+  }
+  button {
+    grid-column: 1/5;
+    margin-left: 0;
+  }
 }
