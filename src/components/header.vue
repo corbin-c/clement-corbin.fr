@@ -1,5 +1,5 @@
 <template>
-    <header :class="state" v-on:transitionend="updateState">
+    <header :class="state" v-on:animationend="updateState">
       
       <p v-if="!navShown">Hi,</p><p v-if="!navShown">I'm</p>
       
@@ -50,7 +50,7 @@ export default {
     },
     setState() {
       if (this.route === "/") {
-        this.state = "";
+        this.state = "title";
         this.lastName = "Corbin,";
       } else {
         this.state = "header static";
@@ -58,7 +58,7 @@ export default {
       }
     },
     updateState(e) {
-      if (e.target.tagName.toLowerCase() == "header" && e.target.className.includes("header")) {
+      if (e.animationName.includes("toheader")) {
         this.state = "header static";
       }
     },
