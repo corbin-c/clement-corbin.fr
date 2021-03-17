@@ -1,7 +1,7 @@
 <template>
   <section>
     <form v-on:submit="submit" novalidate autocomplete="off" :class="submited">
-      <h3>{{ title }}</h3>
+      <h3 v-if="hasTitle">{{ title }}</h3>
       <p><slot></slot></p>
       <label id="name" :class="getLabelClasses('name')">
         <input
@@ -77,6 +77,9 @@ export default {
     }
   },
   computed: {
+    hasTitle() {
+      return (this.title == "");
+    },
     submited() {
       return this.isSuccess ? "success":"";
     },
