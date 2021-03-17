@@ -1,5 +1,5 @@
 <template>
-    <section ref="main">
+    <main ref="main">
       <p>
         The page you're looking for is not here. Feeling lost?
         <a href="#" v-on:click="backHomeButton">Back to home</a>
@@ -30,7 +30,7 @@
               </animate>
           </circle>
       </svg>
-    </section>
+    </main>
 </template>
 <style scoped src="../assets/404.css"></style>
 <script>
