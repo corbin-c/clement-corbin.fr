@@ -1,3 +1,78 @@
+@keyframes toheaderh1 {
+  0% {
+    left: 32.1%;
+    top: 6%;
+    font-size: 197%;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  100% {
+    font-size: 1em;
+    top: -.05em;
+    left: .1em;
+    transform: translate3d(0,0,0) scale(1);
+  }
+}
+@keyframes toheaderh2 {
+  0% {
+    left: 0%;
+    top: 46.3%;
+    font-size: 184.6%;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  100% {
+    font-size: .7em;
+    top: 46.3%;
+    left: .3em;
+    transform: translate3d(0,0,0) scale(1);
+  }
+}
+@keyframes toheaderh1span {
+  0% {
+    left: -48%;
+    top: 59%;
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  100% {
+    left: 108%;
+    top: 0;
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+}
+@keyframes toheaderh2span {
+  0% {
+    left: 28.8%;
+    top: 69.2%;
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  100% {
+    left: 108%;
+    top: 0;
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+}
+@keyframes toheader {
+  0% {
+    width: var(--headersize);
+    height: var(--headersize);
+    left: calc((100vw - var(--headersize)) / 2);
+    top: calc((100vh - var(--headersize)) / 2);
+  }
+  70% {
+    height: 2em;
+    left: 0;
+  }
+  100% {
+    width: 100vw;
+    left: 0;
+    top: 0;
+    font-size: var(--headerfontsize);
+    height: 2em;
+  }
+}
 @keyframes reveal {
   0% {
     opacity: 1;
@@ -7,36 +82,36 @@
     transform: translate3d(0,0,0) scale(1);
   }
 }
-header * {
-  color: var(--contrast1);
-  font-family: 'Poiret One', serif;
-}
 header {
   z-index: 200;
-  width: var(--headersize);
-  height: var(--headersize);
   position: fixed;
   overflow: hidden;
-  left: calc((100vw - var(--headersize)) / 2);
-  top: calc((100vh - var(--headersize)) / 2);
-  font-size: var(--headerfontsize);
-  font-weight: bold;
-  transition: all 1.3s;
   --headersize: 100vh;
-  --headerfontsize: 10vh;
+  --titlefontsize: 10vh;
+  --headerfontsize: 3.8em;
+  font-size: var(--titlefontsize);
 }
 @media screen and (orientation: portrait) {
   header {
     --headersize: 100vw;
-    --headerfontsize: 10vw;
+    --titlefontsize: 10vw;
+    --headerfontsize: 2.5em;
   }
 }
+.title {
+  width: var(--headersize);
+  height: var(--headersize);
+  left: calc((100vw - var(--headersize)) / 2);
+  top: calc((100vh - var(--headersize)) / 2);
+}
 header * {
+  color: var(--contrast1);
+  font-family: 'Poiret One', serif;
   position: absolute;
   letter-spacing: -0.026em;
-  transition: all .6s;
+  font-weight: bold;
 }
-p:first-child {
+.title p:first-child {
   left: 2.3%;
   top: 10.3%;
   font-size: 108.3%;
@@ -44,7 +119,7 @@ p:first-child {
   transform: translate3d(-120%,0,0);
   animation: .5s reveal ease-in-out forwards;
 }
-p:nth-child(2) {
+.title p:nth-child(2) {
   left: 18.3%;
   top: 10.3%;
   font-size: 108.3%;
@@ -52,27 +127,22 @@ p:nth-child(2) {
   transform: translate3d(0,-190%,0);
   animation: .5s reveal .5s ease-in-out forwards;
 }
-h1 {
+.title h1 {
   left: 32.1%;
   top: 6%;
   font-size: 197%;
   transform: translate3d(120%,0,0);
-  transition: all 1.3s;
-/*
-  transform: translate3d(0,0,0) scale(53);
-*/
   animation: 1.1s reveal .75s ease-in-out forwards;
 }
-h1 span {
+.title h1 span {
   position: absolute;
-  transition: all 1.3s;
   left: -48%;
   top: 59%;
   opacity: 0;
   transform: translate3d(-240%,0,0);
   animation: 1.1s reveal .75s ease-in-out forwards;
 }
-p:nth-child(4) {
+.title p:nth-child(4) {
 /*
   left: 41%;
   top: 34.5%;
@@ -84,7 +154,7 @@ p:nth-child(4) {
   color: rgba(0,0,0,0);
   overflow: hidden;
 }
-p:nth-child(4):after {
+.title p:nth-child(4):after {
   content: "freelance";
   position: absolute;
   top: 0%;
@@ -93,26 +163,24 @@ p:nth-child(4):after {
   transform: translate3d(0%,120%,0);
   animation: .5s reveal 1.75s ease-in-out forwards;
 }
-h2 {
+.title h2 {
   left: 0%;
   top: 46.3%;
   font-size: 184.6%;
   transform: translate3d(-125%,0,0);
-  transition: all 1.3s;
   animation: 1.1s reveal 2s ease-in-out forwards;
   letter-spacing: -0.031em;
 }
-h2 span {
+.title h2 span {
   position: absolute;
   left: 28.8%;
   top: 69.2%;
   letter-spacing: -0.031em;
   opacity: 0;
-  transition: all 1.3s;
   transform: translate3d(250%,0,0);
   animation: 1.1s reveal 2.3s ease-in-out forwards;
 }
-p:nth-child(6) {
+.title p:nth-child(6) {
   left: 0.2%;
   top: 79.2%;
   font-size: 99.3%;
@@ -121,7 +189,7 @@ p:nth-child(6) {
   width: 100%;
   color: rgba(0,0,0,0);
 }
-p:nth-child(6):after {
+.title p:nth-child(6):after {
   content: "Welcome to my portfolio";
   position: absolute;
   top: 0%;
@@ -134,8 +202,9 @@ p:nth-child(6):after {
   width: 100vw;
   left: 0;
   top: 0;
+  font-size: var(--headerfontsize);
   height: 2em;
-  --headerfontsize: 3.8em;
+  animation: 1.3s toheader ease-out forwards;
 }
 .header *, .header *:after {
   color: rgba(0,0,0,0) !important;
@@ -147,32 +216,32 @@ p:nth-child(6):after {
   font-size: 1em;
   top: -.05em;
   left: .1em;
+  animation: 1s toheaderh1 ease-out forwards;
 }
 .header h2 {
   font-size: .7em;
   left: .3em;
+  animation: 1s toheaderh2 ease-out forwards;
 }
-.header h1 span, .header h2 span {
+.header h1 span {
   left: 108%;
   top: 0;
+  animation: 1s toheaderh1span ease-out forwards;
 }
-@media screen and (orientation: portrait) {
-  .header {
-    --headerfontsize: 2.5em;
-  }
+.header h2 span {
+  left: 108%;
+  top: 0;
+  animation: 1s toheaderh2span ease-out forwards;
 }
 .static h1, .static h1 span, .static h2, .static h2 span {
-  transition: none !important;
   animation: none !important;
   opacity: 1;
   transform: translate3d(0,0,0) scale(1);
 }
 .static {
-  transition: none !important;
   animation: none !important;
   opacity: 1;
 }
 .static p, .static p:after {
-  transition: none !important;
   animation: none !important;
 }
