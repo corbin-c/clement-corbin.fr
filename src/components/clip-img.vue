@@ -1,6 +1,7 @@
 <template>
   <img
     ref="clipped"
+    :alt="alt"
     :src="getImgUrl()"
     :style="getStyle"> 
 </template>
@@ -20,7 +21,6 @@ export default {
         rest: "",
         hover: ""
       },
-      observer: null
     }
   },
   computed: {
@@ -31,29 +31,24 @@ export default {
       }
     }
   },
-  mounted: function() {
-    const size = this.$refs.clipped.getBoundingClientRect();
-    this.responsivePath(size.width,size.height);
-    this.initObserver();
+  created() {
+    this.$root.$on("resizeView",this.responsivePath);
   },
-  beforeDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+  mounted: function() {
+    this.responsivePath();
   },
   methods: {
-    onResize(mutation) {
-      this.responsivePath(mutation[0].contentRect.width,mutation[0].contentRect.height);
-    },
-    initObserver() {
-      const observer = new ResizeObserver(this.onResize);
-      observer.observe(this.$refs.clipped);
-      this.observer = observer;
-    },
     getImgUrl() {
       return require('../assets/'+this.src);
     },
-    responsivePath(width,height) {
+    responsivePath() {
+      if (!this.$refs.clipped) {
+        return;
+      }
+      let { width, height } = this.$refs.clipped.getBoundingClientRect();
+      if (height == 0) {
+        height = width;
+      }
       [{path:this.path,target:"rest"},
       {path:this.hoverpath,target:"hover"}].forEach(path => {
         let p = path.path.split(" ");
@@ -77,6 +72,6 @@ export default {
       });
     }
   },
-  props: ["src","path","hoverpath"]
+  props: ["src","path","hoverpath","alt"]
 }
 </script>

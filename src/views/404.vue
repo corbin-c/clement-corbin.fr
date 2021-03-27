@@ -2,12 +2,17 @@
     <main ref="main">
       <p>
         The page you're looking for is not here. Feeling lost?
-        <a href="#" v-on:click="backHomeButton">Back to home</a>
+        <a href="#" class="btn" v-on:click="backHomeButton">Back to home
+        <span class="arrow-circle">
+          <svg viewBox="0 0 16 12"><polygon points="15.8,6 15.3,5.5 15.3,5.5 9.9,0.1 9.2,0.8 13.9,5.5 0.5,5.5 0.5,6.5 13.9,6.5 9.2,11.2 9.9,11.9 15.3,6.5 15.3,6.5"></polygon></svg>
+          <svg viewBox="0 0 16 12"><polygon points="15.8,6 15.3,5.5 15.3,5.5 9.9,0.1 9.2,0.8 13.9,5.5 0.5,5.5 0.5,6.5 13.9,6.5 9.2,11.2 9.9,11.9 15.3,6.5 15.3,6.5"></polygon></svg>
+        </span>
+        </a>
       </p>
       <svg
+        id="err404"
         ref="svg"
         xmlns="http://www.w3.org/2000/svg"
-        :class="svgClass"
         :height="vh"
         :width="vw"
         :viewBox="svgViewBox">
@@ -15,7 +20,7 @@
             v-for="circle in circles"
             :key="'c' + circle.key"
             :ref="'c' + circle.key"
-            v-on:click="circleClick(circle)"
+            v-on:click="(e) => { circleClick(circle,e) }"
             r="0"
             :cx="circle.cx"
             :cy="circle.cy"
@@ -32,19 +37,19 @@
       </svg>
     </main>
 </template>
-<style scoped src="../assets/404.css"></style>
+<style scoped src="./404.css"></style>
 <script>
 export default {
   name: 'error-404',
   data: function() {
     return {
-      colors: ["386fa4","498abe","59a5d8","6fbce7","84d2f6","8bdcf6","91e5f6","9be7f7"],
+      colors: ["facfbd","fbc1ac","fbb29a","fca489","fc9577","fc7753"],
+      //~ colors: ["dbdbd2","bdc9c4","9fb7b6","80a5a8","62949a","43828c","25707e","065e70"],
       W: 65,
       H: 65,
       vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
       vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
       SVG: "http://www.w3.org/2000/svg",
-      svgClass: "",
       circles: [],
       viewRatio: 1,
     }
@@ -86,26 +91,24 @@ export default {
       return array;
     },
     goBack() {
-      this.svgClass = "front";
       setTimeout(() => {
         this.$router.push("/");
-      },950);
+      },500);
     },
-    circleClick(circle) {
-      console.log(circle);
-      let index = this.circles.indexOf(circle);
-      this.circles = [...this.circles.slice(0,index),
-      ...this.circles.slice(index+1),circle];
-      this.$root.$emit("err404toHome",circle.fill);
+    circleClick(circle,event) {
+      this.$root.$emit("navigation",
+        { color: circle.fill,
+          position: {
+            cx: event.clientX,
+            cy: event.clientY
+          }
+        });
       this.goBack();
     },
-    backHomeButton() {
+    backHomeButton(event) {
+      event.preventDefault();
       let circle = this.circles[Math.floor(Math.random()*this.circles.length)];
-      let circleElt = this.$refs["c"+circle.key][0];
-      circleElt.querySelector(".xclick").beginElement();
-      circleElt.querySelector(".yclick").beginElement();
-      circleElt.querySelector(".click").beginElement();
-      this.circleClick(circle);
+      this.circleClick(circle,event);
     },
     mkCircles(indexes) {
       const R = Math.max(this.vw,this.vh)/135;
@@ -137,12 +140,6 @@ export default {
             values: [0,r].join(";"),
             dur: rDur,
             begin: "start.begin + "+rBegin,
-          },
-          { attributeName:"r",
-            values: [r,Math.max(this.vh,this.vw)].join(";"),
-            dur: "850ms",
-            begin: "click",
-            "class": "click"
           },
           { attributeName:"cx",
             values: x,
@@ -183,7 +180,7 @@ export default {
           cx: startX,
           cy: startY,
           key: this.circles.length,
-          fill: "#"+this.colors[Math.round(Math.random()*7)],
+          fill: "#"+this.colors[Math.round(Math.random()*(this.colors.length-1))],
           animations
         });
       });

@@ -1,162 +1,123 @@
 <template>
-  <div id="app">
+  <div id="app" :class="topClass">
     <title-header :links="links"></title-header>
-    <div id="mainview" ref="mainview">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" id="tr404" :style="tr404style">
-        <circle :style="transition404" stroke="none" cx="50" cy="50" r="200" v-on:animationend="hideSVG"></circle>
-      </svg>
-<!--
-      <div id="tr404" :style="transition404"></div>
--->
-      <router-view/>
-    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" id="tr" :style="trStyle">
+      <circle
+        :style="circleTransition"
+        stroke="none"
+        :cx="transitionParameters.cx"
+        :cy="transitionParameters.cy"
+        :r="transitionParameters.r"
+        v-on:animationend="hideSVG"></circle>
+    </svg>
+    <transition :name="contentTransition">
+      <router-view v-if="contentShown"/>
+    </transition>
+    <transition :name="contentTransition">
+      <app-footer v-if="contentShown"></app-footer>
+    </transition>
   </div>
 </template>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
-
-:root {
-/*
-  --neutral1:#dce0d4;
-  --neutral2:#c9c8d6;
-  --regular1:#b6bddc;
-  --regular2:#e19c8b;
-  --contrast1:#adbeea;
-  --contrast2:#ff6230;
-e63946-f1faee-cdeae5-a8dadc-457b9d-1d3557
-*/
-  --neutral1:#cdeae5;
-  --neutral2:#f1faee;
-  --regular1:#a8dadc;
-  --regular2:#457b9d;
-  --contrast1:#1d3557;
-  --contrast2:#e63946;
-}
-* {
-  margin: 0;
-  padding: 0;
-  font-family: Sans;
-  box-sizing: border-box;
-  color: var(--contrast2);
-  font-family: 'Roboto Slab', serif;
-}
-html {
-  min-height: 100vh;
-  background: var(--neutral1);
-}
-body {
-  width: 100%;
-  height: 100vh;
-}
-@keyframes reduce {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-#tr404 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 300;
-  width: 100vw;
-  height: 100vh;
-}
-#mainview {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style src="./assets/app.css"></style>
 <script>
 import Header from "./components/header.vue";
-//~ import Nav from "./components/nav.vue";
+import Footer from "./components/footer.vue";
 
 export default {
   name: 'App',
   data: function() {
     return {
-      fill404: "",
-      transitionName: "",
+      contentShown: false,
+      headerState:"",
+      lastState:"",
+      lastYscroll: 0,
+      transitionParameters: {
+        fill: "",
+        name: "",
+        cx: "0",
+        cy: "0",
+        r: "0"
+      },
       hiddenSVG: true,
       links: [
         {to:"/",slot:"Home"},
         {to:"/about",slot:"About"},
         {to:"/contact",slot:"Contact"},
-        {to:"/404",slot:"404"},
       ],
     }
   },
-  watch: {
-    '$route' (to, from) {
-      if ((from.path == "/404") && (this.fill404 != "")) {
-        this.transitionName="err404toHome";
-        this.hiddenSVG = false;
-      } else {
-        this.transitionName="";
-      }
-    }
-  },
   created() {
-    this.$root.$on("err404toHome",this.updateFill);
+    window.addEventListener('scroll', this.updateScroll);
+    this.$root.$on("navigation",this.updateTransition);
+    this.$root.$on("headerState",this.updateHeaderStatus);
   },
   components: {
-    //~ "nav-menu": Nav,
-    "title-header": Header
+    "title-header": Header,
+    "app-footer": Footer
   },
   mounted: function() {
   },
   computed: {
-    transition404() {
-      if (this.transitionName == "") {
+    topClass() {
+      return (this.contentShown) ? "ready" : "";
+    },
+    contentTransition() {
+      if ((this.$route.path == "/")
+      && (this.lastState == "title")) {
+        return "content-in";
+      }
+      return "";
+    },
+    circleTransition() {
+      if (this.transitionParameters.name == "") {
         return "";
       } else {
-        return `
-          fill: `+this.fill404+`;
-          transform-origin: bottom center;
-          animation: .55s reduce forwards;
-        `;
+        return "fill: "+this.transitionParameters.fill+"; transform-origin: "+this.transitionParameters.cx+" "+this.transitionParameters.cy+"; animation: 1s ease-in-out growAndReduce forwards;";
       }
     },
-    tr404style() {
-      if ((this.transitionName == "") || (this.hiddenSVG)) {
+    trStyle() {
+      if ((this.transitionParameters.name == "") || (this.hiddenSVG)) {
         return "display: none;";
-      } else {
-        return "display: block;";
       }
+      return "display: block;";
     }
   },
   methods: {
-    updateFill(color) {
-      this.fill404 = color;
+    updateScroll() {
+      let scroll = window.scrollY;
+      let direction = (scroll > this.lastYscroll) ? 1:-1;
+      this.$root.$emit("scroll",scroll,direction);
+      this.lastYscroll = scroll;
+    },
+    updateHeaderStatus(state) {
+      this.lastState = this.headerState;
+      this.headerState = state;
+      this.contentShown = state.includes("header");
+    },
+    updateTransition(parameters) {
+      this.transitionParameters.name = "growAndReduce";
+      this.hiddenSVG = false;
+      if (parameters.color) {
+        this.transitionParameters.fill = parameters.color;
+      } else {
+        //~ let colors = ["regular","neutral","contrast"];
+        //~ this.transitionParameters.fill = "var(--"+colors[Math.round(Math.random()*(colors.length-1))]+")";
+        this.transitionParameters.fill = "var(--regular)";
+      }
+      if (parameters.position) {
+        this.transitionParameters.cx = parameters.position.cx+"px";
+        this.transitionParameters.cy = parameters.position.cy+"px";     
+      } else {
+        this.transitionParameters.cx = "50vw";
+        this.transitionParameters.cy = "50vh";
+      }
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      this.transitionParameters.r = Math.sqrt(vw*vw+vh*vh)+"px";
     },
     hideSVG() {
       this.hiddenSVG = true;
-      this.fill404="";
+      this.transitionParameters.fill = "";
     }
   }
 }

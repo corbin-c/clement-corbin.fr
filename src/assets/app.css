@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat+Alternates&display=swap');
+@import url("./colors.css");
+:root {
+--pad: 20vw;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--regular);
+  font-family: 'Montserrat Alternates', sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  font-size: 100%;
+}
+input::-ms-clear {
+  display: none;
+}
+*:focus {
+  outline: none;
+}
+html {
+  cursor: default;
+  min-height: 100vh;
+  background: var(--neutral);
+  overflow-x: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialised;
+  text-rendering: optimizeLegibility;
+}
+body {
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  scroll-behavior: smooth;
+}
+@keyframes growAndReduce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+#tr {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  width: 100vw;
+  height: 100vh;
+}
+#app {
+  position: relative;
+}
+#app.ready {
+  min-height: 140vh;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+main {
+  padding-top: 11vh;
+  width: 100%;
+  min-height: 100vh;
+}
+main section {
+  width: 100%;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+}
+.btn {
+  border: 2px solid var(--contrast);
+  background-color: rgba(0,0,0,0);
+  color: var(--contrast);
+  text-align: center;
+  border-radius: .45em;
+  padding: .6em;
+  transition: .4s all;
+}
+.btn svg * {
+  fill: var(--contrast);
+  stroke: var(--contrast);
+  --btn-primary: var(--contrast);
+  --btn-secondary: var(--neutral);
+}
+.btn:hover svg *, .btn:focus svg * {
+  fill: var(--neutral);
+  stroke: var(--neutral);
+}
+.btn:hover, .btn:focus {
+  cursor: pointer;
+  background-color: var(--contrast);
+  color: var(--neutral);
+}
+.cta {
+  background-color: var(--contrast);
+  color: var(--neutral);
+}
+.cta:hover, .cta:focus {
+  cursor: pointer;
+  background-color: rgba(0,0,0,0);
+  color: var(--contrast);
+}
+main h1 {
+  font-size: 2em;
+  color: var(--contrast);
+}
+main h2 {
+  font-size: 1.8em;
+  color: var(--regular);
+}
+@media screen and (max-aspect-ratio: 10/9) {
+  :root {
+    --pad: 2vw;
+  }
+}
+.content-in-enter-active {
+  transition: .8s all ease-out;
+}
+.content-in-enter, .nav-in-leave-to {
+  transform: translateY(120%);
+  opacity: 0;
+}
+.content-in-enter-to {
+  transform: translateY(0%);
+  opacity: 1;
+}

@@ -3,11 +3,11 @@
       
       <p v-if="!navShown">Hi,</p><p v-if="!navShown">I'm</p>
       
-      <h1>Clément <span>{{ lastName }}</span></h1>
+      <h1><vue-link to="/">Clément <span>{{ lastName }}</span></vue-link></h1>
       
       <p v-if="!navShown">freelance</p>
       
-      <h2>JavaScript <span>developer</span></h2>
+      <h2><vue-link to="/">JavaScript <span>developer</span></vue-link></h2>
       
       <p v-if="!navShown" v-on:animationend="hideTitleScreen">Welcome to my portfolio</p>
 
@@ -16,19 +16,21 @@
       </transition>
     </header>
 </template>
-<style scoped src="../assets/header.css"></style>
+<style scoped src="./styles/header.css"></style>
 <script>
 import Nav from "./nav.vue";
+import vueLink from './link.vue'
 export default {
   data: function() {
     return {
-      route: "/",
+      route: "",
       state: "header static",
       lastName: "Corbin",
     }
   },
   components: {
-    "nav-menu": Nav
+    "nav-menu": Nav,
+    "vue-link": vueLink
   },
   computed: {
     navShown() {
@@ -36,24 +38,21 @@ export default {
     },
   },
   watch: {
-    $route: "setRoute"
+    state: function() {
+      this.$root.$emit("headerState",this.state);
+    }
   },
   mounted: function() {
+    this.route = window.location.pathname;
     this.setState();
   },
   methods: {
-    setRoute(e) {
-      if (this.route === "/") {
-        this.route = e.path;
-        this.setState();
-      }
-    },
     setState() {
       if (this.route === "/") {
         this.state = "title";
         this.lastName = "Corbin,";
       } else {
-        this.state = "header static";
+        this.state = "header static x";
         this.lastName = "Corbin";        
       }
     },

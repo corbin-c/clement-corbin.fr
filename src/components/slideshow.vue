@@ -39,13 +39,13 @@
       <div class="caption" v-for="slide in slides"
           :key="slide.picture"
           :class="slide.visibility">
-        <h4>{{ slide.title }}</h4>
+        <h2>{{ slide.title }}</h2>
         <p>{{ slide.description }}</p>
       </div>
     </article>
   </section>
 </template>
-<style scoped src="../assets/slideshow/slideshow.css"></style>
+<style scoped src="./styles/slideshow.css"></style>
 <script>
 export default {
   data: function() {

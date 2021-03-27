@@ -30,21 +30,27 @@
     transform: translate(100%);  
   }
 }
-.slideshow .visual {
-  display: flex;
-  flex-wrap: nowrap;
+section {
+  padding-left: var(--slidepad);
+  padding-right: var(--slidepad);
+  height: calc(0.57 * var(--lapwidth) + 8em);
+  position: relative;
+  --slidepad: 5vw;
+  --lapwidth: 70vw;
+}
+.visual {
   padding-left: 12vw;
 }
 #laptop {
-  width: 70vw;
+  width: var(--lapwidth);
   position: relative;
 }
 #phone {
-  width: 14vw;
+  width: calc(0.2 * var(--lapwidth));
   height: 100%;
   position: relative;
-  left: -14vw;
-  top: 16vw;
+  left: calc(0.78 * var(--lapwidth));
+  top: calc(-0.3 * var(--lapwidth));
 }
 .slideshow .frame {
   width: 100%;
@@ -64,14 +70,14 @@
   width: 78.1%;
   height: 88%;
   left: 10.6%;
-  top: 4%;
+  top: 3.9%;
   z-index: 10;
 }
 #phone .content {
   width: 84.7%;
   height: 91%;
   top: 4%;
-  left: 8%;
+  left: 8.1%;
   z-index: 30;
 }
 .content img {
@@ -82,11 +88,12 @@
   left: 0;
   right: 0;
 }
-.slideshow article {
+article {
   width: 50%;
-  font-size: 2em;
-  position: relative;
-  left: 18%;
+  font-size: .85em;
+  position: absolute;
+  left: 20%;
+  top: calc(0.57 * var(--lapwidth));
 }
 .caption {
   display: inline;
@@ -125,18 +132,19 @@
 .caption p {
   text-align: center;
   padding: .2em;
-  font-size: 0.75em;
   transition: 1s transform;
 }
-.caption h4 {
+.caption h2 {
   padding-left: .2em;
   margin-bottom: .2em;
-  font-size: 1.1em;
 }
 fieldset {
-  margin-top: .5em;
   border: 0px;
   display: flex;
+  position: absolute;
+  top: calc(0.515 * var(--lapwidth));
+  left:0;
+  right: 0;
   justify-content: center
 }
 fieldset input {
@@ -148,10 +156,11 @@ fieldset input {
   cursor: pointer;
 }
 .radio {
+  font-size: .8em;
   display: inline-block;
   width: 1.4em;
   height: 1.4em;
-  border: .16em solid black;
+  border: .16em solid var(--regular);
   margin-left: .5em;
   margin-right: .5em;
   border-radius: 100%;
@@ -170,7 +179,7 @@ fieldset input {
   border: 0;
   border-radius: 100%;
   position: relative;
-  background: black;
+  background: var(--regular);
 }
 .radio:after {
   opacity: 1;
@@ -191,4 +200,30 @@ fieldset input:checked + .radio:after {
   transition: none;
   transform: translateX(0);
   opacity: 0;
+}
+@media screen and (max-aspect-ratio: 10/9) {
+  section {
+    --slidepad: 0vw;
+    --lapwidth: 98vw;
+  }
+  article {
+    width: 70%;
+    left: 8%;
+  }
+  .visual {
+    padding-left: 0;
+  }
+}
+@media screen and (max-width: 600px) and (max-aspect-ratio: 10/9) {
+  section {
+    height: calc(0.62 * var(--lapwidth) + 10em);
+  }
+  fieldset {
+    top: calc(0.54 * var(--lapwidth));
+  }
+  article {
+    top: calc(0.65 * var(--lapwidth));
+    width: 96vw;
+    left: 2vw;
+  }
 }
